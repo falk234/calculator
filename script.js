@@ -17,6 +17,6 @@ const divide = (a,b) => {
 
 // Variables
 
-const num1=0;
-const num2=0;
-const operator=''; 
+let num1=0;
+let num2=0;
+let operator=''; 
