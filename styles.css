@@ -1,3 +1,100 @@
-h1{
-    background-color: brown;
+/* flex-shrink: 0 setzen und Mindestgröße festlegen, dann schrumpfen Elemente nicht unter diese Größe */
+/* flex-basis:auto setzen, damit Elemente nicht unter definierte Größe schrumpfen
+ */
+*{
+    font-size: 100px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+html{
+    height: 100vh;
+    display: flex;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+}
+
+#container{
+    display: flex;
+    /* height: 175px;
+    width: 125px; */
+    border: black solid 1px;
+    flex: auto;
+    /* height: 100%; */
+    flex-direction: column;
+}
+
+#numbers-operators-other{
+    display: flex;
+    /* flex-direction: column; */
+    flex-grow: 3;
+    border: black solid 1px;
+}
+
+#numbers{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 3;
+    flex-shrink: 3;
+    border: black solid 1px;
+}
+
+.number{
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: auto;
+    min-height: 100px;
+    min-width: 100px;
+    /* aspect-ratio: 1/1; */
+}
+#display{
+    flex:auto;
+    border: black solid 1px;
+}
+
+#operators-div{
+    display: flex;
+    flex-direction: column;
+    flex:auto;
+    border: black solid 1px;
+
+}
+
+#others-div{
+    display: flex;
+    flex:auto;
+    justify-content:space-evenly;
+    border: black solid 1px;
+
+}
+
+#operators-others{
+    display: flex;
+    flex-direction: column;
+    flex:auto;
+    border: black solid 1px;
+
+}
+
+.row{
+    flex:auto;
+    display: flex;
+    border: black solid 1px;
+}
+
+#row4{
+    justify-content: center;
+}
+
+.operators{
+    flex: auto;
+}
+
+.others{
+    flex: auto;
 }
