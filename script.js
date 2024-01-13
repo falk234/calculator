@@ -1,8 +1,4 @@
-// add
-// subtract
-// multiply
-// divide
-
+// Operations
 const add = (a,b) => {
     return a+b;
 }
@@ -19,10 +15,8 @@ const divide = (a,b) => {
     return a/b;
 }
 
-let a=2;
-let b=3;
+// Variables
 
-console.log(add(a,b)+"=> 5");
-console.log(subtract(a,b)+"=> -1");
-console.log(multiply(a,b)+"=> 6");
-console.log(divide(a,b)+" => 0,6");
+const num1=0;
+const num2=0;
+const operator=''; 
