@@ -69,18 +69,23 @@ operatorButtons.forEach( (button) => {
 
 const equalButton = document.querySelector('button#equal');
 equalButton.addEventListener('click', () => {
-    numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
-    display(numberOnDisplay);
-    savedNumber='';
-    // reset();
+    if (operator&&savedNumber&&numberOnDisplay){
+        numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
+        display(numberOnDisplay);
+        savedNumber='';
+    }else reset();
     })
 
 const resetButton = document.querySelector('button#reset');
 resetButton.addEventListener('click', () => {
+   reset();
+})
+
+const reset = () => {
     display(0);
     numberOnDisplay='';
     savedNumber='';
     operator=''; 
-})
+}
 
 // console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
