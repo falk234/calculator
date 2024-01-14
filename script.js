@@ -39,7 +39,6 @@ numberButtons.forEach( (button) => {
     button.addEventListener('click', () => {
         numberOnDisplay+=(button.id);
         display(numberOnDisplay);
-        console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
     })
 })
 
@@ -58,14 +57,11 @@ operatorButtons.forEach( (button) => {
         let operatorOld=operator;
         operator=button.id;
         if(savedNumber){
-            console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
             savedNumber=operate (operatorOld,savedNumber,numberOnDisplay)
-            console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
             display(savedNumber);
             numberOnDisplay='';
         }else{
         savedNumber=numberOnDisplay;
-        console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
         numberOnDisplay="";
         }
     })
@@ -74,7 +70,6 @@ operatorButtons.forEach( (button) => {
 const equalButton = document.querySelector('button#equal');
 equalButton.addEventListener('click', () => {
     numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
-    console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
     display(numberOnDisplay);
     savedNumber='';
     // reset();
@@ -83,12 +78,9 @@ equalButton.addEventListener('click', () => {
 const resetButton = document.querySelector('button#reset');
 resetButton.addEventListener('click', () => {
     display(0);
-    reset();
-})
-
-const reset = () => {
     numberOnDisplay='';
     savedNumber='';
     operator=''; 
+})
 
-}
+// console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
