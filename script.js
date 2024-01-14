@@ -32,15 +32,6 @@ const operate = (operator,savedNumber,numberOnDisplay) => {
     }
 }
 
-// Create the functions that populate the display when you click the number buttons. 
-// You should be storing the ‘display value’ in a variable somewhere for use in the next step.
-
-// queryselctor für zahlen tasten
-// in array schreiben
-// array auf display ausgeben nach jedem klick
-
-// alternativ kann ich die zahlen auch einfach als ein String speichern und über + hinzufügen
-
 
 
 const numberButtons = document.querySelectorAll('button.number');
@@ -48,7 +39,7 @@ numberButtons.forEach( (button) => {
     button.addEventListener('click', () => {
         numberOnDisplay+=(button.id);
         display(numberOnDisplay);
-        // console.log(numberOnDisplay);
+        console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
     })
 })
 
@@ -64,13 +55,17 @@ const display = (numberOnDisplay) => {
 const operatorButtons = document.querySelectorAll('button.operators');
 operatorButtons.forEach( (button) => {
     button.addEventListener('click', () => {
+        let operatorOld=operator;
         operator=button.id;
         if(savedNumber){
-            savedNumber=operate (operator,savedNumber,numberOnDisplay)
+            console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
+            savedNumber=operate (operatorOld,savedNumber,numberOnDisplay)
+            console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
             display(savedNumber);
             numberOnDisplay='';
         }else{
         savedNumber=numberOnDisplay;
+        console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
         numberOnDisplay="";
         }
     })
@@ -79,8 +74,9 @@ operatorButtons.forEach( (button) => {
 const equalButton = document.querySelector('button#equal');
 equalButton.addEventListener('click', () => {
     numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
+    console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
     display(numberOnDisplay);
-    numberOnDisplay='';
+    savedNumber='';
     // reset();
     })
 
