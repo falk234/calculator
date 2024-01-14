@@ -13,8 +13,12 @@ const multiply = (a,b) => {
 
 const divide = (a,b) => {
     let c= a/b;
-    c=Math.round((c+Number.EPSILON)*100)/100; // 1,2356 => 1,24
-    return c;
+    if (c==Infinity){
+    return 0;
+
+    }else{
+    return Math.round((c+Number.EPSILON)*100)/100; // 1,2356 => 1,24
+    }
 }
 
 // Variables
