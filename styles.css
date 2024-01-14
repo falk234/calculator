@@ -53,8 +53,13 @@ body{
     /* aspect-ratio: 1/1; */
 }
 #display{
-    flex:auto;
+    /* flex:auto; */
     border: black solid 1px;
+    min-height: 133px;
+    min-width: 996px;
+    flex: 1 0 auto;
+
+
 }
 
 #operators-div{

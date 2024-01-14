@@ -17,8 +17,8 @@ const divide = (a,b) => {
 
 // Variables
 
-let num1="";
-let num2="";
+let numberOnDisplay="";
+let savedNumber="";
 let operator=''; 
 
 // Functions
@@ -41,12 +41,12 @@ const operate = (operator,num1,num2) => {
 
 // alternativ kann ich die zahlen auch einfach als ein String speichern und über + hinzufügen
 
-let numberOnDisplay="";
+
 
 const numberButtons = document.querySelectorAll('button.number');
-numberButtons.forEach( (element) => {
-    element.addEventListener('click', () => {
-        numberOnDisplay+=(element.id);
+numberButtons.forEach( (button) => {
+    button.addEventListener('click', () => {
+        numberOnDisplay+=(button.id);
         display(numberOnDisplay);
         // console.log(numberOnDisplay);
     })
@@ -55,4 +55,24 @@ numberButtons.forEach( (element) => {
 const display = (numberOnDisplay) => {
     let display = document.querySelector('#display');
     display.textContent=numberOnDisplay;
-} 
+}
+
+// Add event listener to operator buttons
+
+
+const operatorButtons = document.querySelectorAll('button.operators');
+operatorButtons.forEach( (button) => {
+    button.addEventListener('click', () => {
+        savedNumber=numberOnDisplay;
+        numberOnDisplay="";
+        display(numberOnDisplay);
+        operator=button.id;
+        // console.log(numberOnDisplay);
+    })
+})
+
+
+
+// Let display value safe if operator is pressed
+
+// call operate once "=" is pressed with stored number and display number
