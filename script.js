@@ -59,22 +59,28 @@ const display = (numberOnDisplay) => {
 
 // Add event listener to operator buttons
 
+// let operator calculate current result, display it and reset number on display again
 
 const operatorButtons = document.querySelectorAll('button.operators');
 operatorButtons.forEach( (button) => {
     button.addEventListener('click', () => {
+        operator=button.id;
+        if(savedNumber){
+            savedNumber=operate (operator,savedNumber,numberOnDisplay)
+            display(savedNumber);
+            numberOnDisplay='';
+        }else{
         savedNumber=numberOnDisplay;
         numberOnDisplay="";
-        display(numberOnDisplay);
-        operator=button.id;
-        // console.log(numberOnDisplay);
+        }
     })
 })
 
 const equalButton = document.querySelector('button#equal');
 equalButton.addEventListener('click', () => {
-    let result=operate (operator,savedNumber,numberOnDisplay)
-    display(result);
+    numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
+    display(numberOnDisplay);
+    numberOnDisplay='';
     // reset();
     })
 
@@ -87,4 +93,6 @@ resetButton.addEventListener('click', () => {
 const reset = () => {
     numberOnDisplay='';
     savedNumber='';
+    operator=''; 
+
 }
