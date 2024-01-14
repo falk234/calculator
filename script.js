@@ -23,12 +23,12 @@ let operator='';
 
 // Functions
 
-const operate = (operator,num1,num2) => {
+const operate = (operator,savedNumber,numberOnDisplay) => {
     switch (operator){
-        case '+' : return add(num1,num2);
-        case '-' : return subtract(num1,num2);
-        case '*' : return multiply(num1,num2);
-        case '/' : return divide(num1,num2);
+        case '+' : return add(+savedNumber,+numberOnDisplay);
+        case '-' : return subtract(+savedNumber,+numberOnDisplay);
+        case '*' : return multiply(+savedNumber,+numberOnDisplay);
+        case '/' : return divide(+savedNumber,+numberOnDisplay);
     }
 }
 
@@ -71,8 +71,13 @@ operatorButtons.forEach( (button) => {
     })
 })
 
+const equalButton = document.querySelector('button#equal');
+equalButton.addEventListener('click', () => {
+    let result=operate (operator,savedNumber,numberOnDisplay)
+    display(result);
+            // console.log(numberOnDisplay);
+    })
 
 
-// Let display value safe if operator is pressed
 
 // call operate once "=" is pressed with stored number and display number
