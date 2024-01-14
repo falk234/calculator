@@ -54,6 +54,8 @@ const display = (numberOnDisplay) => {
 const operatorButtons = document.querySelectorAll('button.operators');
 operatorButtons.forEach( (button) => {
     button.addEventListener('click', () => {
+        // when operator button has been clicked multiple times
+        if (numberOnDisplay===''){operator=button.id; return}
         let operatorOld=operator;
         operator=button.id;
         if(savedNumber){
