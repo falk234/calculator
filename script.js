@@ -12,7 +12,9 @@ const multiply = (a,b) => {
 }
 
 const divide = (a,b) => {
-    return a/b;
+    let c= a/b;
+    c=Math.round((c+Number.EPSILON)*100)/100; // 1,2356 => 1,24
+    return c;
 }
 
 // Variables
