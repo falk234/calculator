@@ -75,9 +75,16 @@ const equalButton = document.querySelector('button#equal');
 equalButton.addEventListener('click', () => {
     let result=operate (operator,savedNumber,numberOnDisplay)
     display(result);
-            // console.log(numberOnDisplay);
+    // reset();
     })
 
+const resetButton = document.querySelector('button#reset');
+resetButton.addEventListener('click', () => {
+    display(0);
+    reset();
+})
 
-
-// call operate once "=" is pressed with stored number and display number
+const reset = () => {
+    numberOnDisplay='';
+    savedNumber='';
+}
