@@ -39,6 +39,7 @@ const operate = (operator,savedNumber,numberOnDisplay) => {
 const numberButtons = document.querySelectorAll('button.number');
 numberButtons.forEach( (button) => {
     button.addEventListener('click', () => {
+        if (operator==='=') numberOnDisplay='';
         numberOnDisplay+=(button.id);
         display(numberOnDisplay);
     })
@@ -77,6 +78,7 @@ equalButton.addEventListener('click', () => {
         numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
         display(numberOnDisplay);
         savedNumber='';
+        operator='=';
     }else reset();
     })
 
