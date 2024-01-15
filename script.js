@@ -1,41 +1,50 @@
-// Operations
-const add = (a,b) => {
-    return a+b;
-}
-
-const subtract = (a,b) => {
-    return a-b;
-}
-
-const multiply = (a,b) => {
-    return a*b;
-}
-
-const divide = (a,b) => {
-    let c= a/b;
-    if (c==Infinity){
-    return 0;
-
-    }else{
-    return Math.round((c+Number.EPSILON)*100)/100; // 1,2356 => 1,24
-    }
-}
-
-// Variables
-
 let numberOnDisplay="";
 let savedNumber="";
-let operator=''; 
+let operator='';
+let operatorOld='';
 
 // Functions
 
-const operate = (operator,savedNumber,numberOnDisplay) => {
+const calculate = (operator) => {
+
     switch (operator){
-        case '+' : return add(+savedNumber,+numberOnDisplay);
-        case '-' : return subtract(+savedNumber,+numberOnDisplay);
-        case '*' : return multiply(+savedNumber,+numberOnDisplay);
-        case '/' : return divide(+savedNumber,+numberOnDisplay);
+            case '+' : savedNumber = +savedNumber + +numberOnDisplay; break;
+            case '-' : savedNumber = +savedNumber - +numberOnDisplay; break;
+            case '*' : savedNumber = +savedNumber * +numberOnDisplay; break;
+            case '/' : savedNumber = +savedNumber / +numberOnDisplay; break;
+        }
+    
+    if (savedNumber==Infinity){
+        return 'zero';
+    }else{
+        return Math.round((savedNumber+Number.EPSILON)*100)/100; // 1,2356 => 1,24
     }
+}
+
+
+const operate = (operatorNew) => {
+//  New calculation after '=' or '=' pressed twice
+    if (operator== 'equal'){
+        operator=operatorNew;
+        if (operator== 'equal') reset();
+    }
+// check if 2 numbers do already exist => need to be calculated together before 2nd operator can be used
+    if (numberOnDisplay && savedNumber){
+        savedNumber=calculate(operator); //calculate with operator from before
+        operator=operatorNew; //  last operator has been "used", next time the current shall be used
+    }else if (numberOnDisplay){ // in case only one number and operator is given (e.g. 59 +)
+        operator=operatorNew;
+        savedNumber=numberOnDisplay;
+    }
+    numberOnDisplay='';
+
+// Check calculation and display it
+    if (savedNumber == 'zero'){
+        display("Division with 0 is not possible!");
+    }else{
+        display(savedNumber);
+    }
+    // else display(savedNumber);
 }
 
 
@@ -43,7 +52,7 @@ const operate = (operator,savedNumber,numberOnDisplay) => {
 const numberButtons = document.querySelectorAll('button.number');
 numberButtons.forEach( (button) => {
     button.addEventListener('click', () => {
-        if (operator==='=') numberOnDisplay='';
+        // if (operator==='=') numberOnDisplay='';
         numberOnDisplay+=(button.id);
         display(numberOnDisplay);
     })
@@ -54,36 +63,16 @@ const display = (numberOnDisplay) => {
     display.textContent=numberOnDisplay;
 }
 
-// Add event listener to operator buttons
-
-// let operator calculate current result, display it and reset number on display again
-
 const operatorButtons = document.querySelectorAll('button.operators');
 operatorButtons.forEach( (button) => {
     button.addEventListener('click', () => {
-        // when operator button has been clicked multiple times
-        if (numberOnDisplay===''){operator=button.id; return}
-        let operatorOld=operator;
-        operator=button.id;
-        if(savedNumber){
-            savedNumber=operate (operatorOld,savedNumber,numberOnDisplay)
-            display(savedNumber);
-            numberOnDisplay='';
-        }else{
-        savedNumber=numberOnDisplay;
-        numberOnDisplay="";
-        }
+     operate (button.id);
     })
 })
 
 const equalButton = document.querySelector('button#equal');
 equalButton.addEventListener('click', () => {
-    if (operator&&savedNumber&&numberOnDisplay){
-        numberOnDisplay=operate (operator,savedNumber,numberOnDisplay)
-        display(numberOnDisplay);
-        savedNumber='';
-        operator='=';
-    }else reset();
+    operate(equalButton.id)
     })
 
 const resetButton = document.querySelector('button#reset');
@@ -99,3 +88,7 @@ const reset = () => {
 }
 
 // console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
+
+// fixed switch-case statement (no break)
+// new function calculate that will do calculation and decision altogether
+// moved code from equal and operator buttons to operation function to reduce redundant code
