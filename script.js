@@ -1,9 +1,6 @@
 let numberOnDisplay="";
 let savedNumber="";
 let operator='';
-let operatorOld='';
-
-// Functions
 
 const calculate = (operator) => {
 
@@ -21,38 +18,38 @@ const calculate = (operator) => {
     }
 }
 
-
 const operate = (operatorNew) => {
-//  New calculation after '=' or '=' pressed twice
-    if (operator== 'equal'){
-        operator=operatorNew;
-        if (operator== 'equal') reset();
-    }
-// check if 2 numbers do already exist => need to be calculated together before 2nd operator can be used
+    
+    // normal calculation
     if (numberOnDisplay && savedNumber){
-        savedNumber=calculate(operator); //calculate with operator from before
-        operator=operatorNew; //  last operator has been "used", next time the current shall be used
-    }else if (numberOnDisplay){ // in case only one number and operator is given (e.g. 59 +)
+        savedNumber=calculate(operator); // calculate with operator from before
+        (operatorNew=="=")?operator="":operator=operatorNew; // Set new operator for next calculation. If "=", there is no new operator
+    }
+    
+    // If only one number is available (first calculation). If there are no numbers, do nothing
+    if (savedNumber=='' && (!numberOnDisplay=='')){
+        savedNumber = numberOnDisplay; // no calculation, just save number and operator
         operator=operatorNew;
-        savedNumber=numberOnDisplay;
-    }
-    numberOnDisplay='';
-
-// Check calculation and display it
+        }
+    
+    // operator Button pressed twice, ('=' pressed twice => do nothing)
+    if (numberOnDisplay=='' && !(operatorNew == '')){
+            operator=operatorNew
+        }
+    
+    // Prepare for next calculation
     if (savedNumber == 'zero'){
-        display("Division with 0 is not possible!");
+        display('Division with 0 not possible!');
+        reset();
     }else{
-        display(savedNumber);
+        numberOnDisplay=''; // clean for new number
+        display(savedNumber); //display result of calculation
     }
-    // else display(savedNumber);
 }
-
-
 
 const numberButtons = document.querySelectorAll('button.number');
 numberButtons.forEach( (button) => {
     button.addEventListener('click', () => {
-        // if (operator==='=') numberOnDisplay='';
         numberOnDisplay+=(button.id);
         display(numberOnDisplay);
     })
@@ -77,18 +74,12 @@ equalButton.addEventListener('click', () => {
 
 const resetButton = document.querySelector('button#reset');
 resetButton.addEventListener('click', () => {
-   reset();
+    display(0);
+    reset();
 })
 
 const reset = () => {
-    display(0);
     numberOnDisplay='';
     savedNumber='';
     operator=''; 
 }
-
-// console.log("numberOnDisplay: "+ numberOnDisplay+ ", savedNumber: "+savedNumber+ " ,operator: "+operator);
-
-// fixed switch-case statement (no break)
-// new function calculate that will do calculation and decision altogether
-// moved code from equal and operator buttons to operation function to reduce redundant code
