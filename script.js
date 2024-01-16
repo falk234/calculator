@@ -47,6 +47,17 @@ const operate = (operatorNew) => {
     }
 }
 
+const display = (numberOnDisplay) => {
+    let display = document.querySelector('#display');
+    display.textContent=numberOnDisplay;
+}
+
+const reset = () => {
+    numberOnDisplay='';
+    savedNumber='';
+    operator=''; 
+}
+
 const numberButtons = document.querySelectorAll('button.number');
 numberButtons.forEach( (button) => {
     button.addEventListener('click', () => {
@@ -54,11 +65,6 @@ numberButtons.forEach( (button) => {
         display(numberOnDisplay);
     })
 })
-
-const display = (numberOnDisplay) => {
-    let display = document.querySelector('#display');
-    display.textContent=numberOnDisplay;
-}
 
 const operatorButtons = document.querySelectorAll('button.operators');
 operatorButtons.forEach( (button) => {
@@ -78,8 +84,17 @@ resetButton.addEventListener('click', () => {
     reset();
 })
 
-const reset = () => {
-    numberOnDisplay='';
-    savedNumber='';
-    operator=''; 
-}
+const toggleButton = document.querySelector('button#toggle');
+toggleButton.addEventListener('click', () => {
+    if (numberOnDisplay){
+        numberOnDisplay*= -1;
+        display(numberOnDisplay);
+    }else{
+        savedNumber*=-1;
+        display(savedNumber);
+    } 
+})
+
+
+
+
